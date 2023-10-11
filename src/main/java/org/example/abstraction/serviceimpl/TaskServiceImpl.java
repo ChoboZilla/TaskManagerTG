@@ -4,6 +4,7 @@ import org.example.abstraction.service.TaskService;
 import org.example.repository.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -37,5 +38,11 @@ public class TaskServiceImpl implements TaskService {
         return taskRepo
                 .save(EditTaskDto.toDbEntity(editTaskDto, id))
                 .map(TaskRepo.Task::id);
+    }
+
+    @Override
+    public Flux<TaskDto> getByType(Integer type) {
+        return taskRepo
+                .findByType(type);
     }
 }

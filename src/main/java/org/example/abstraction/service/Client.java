@@ -12,7 +12,6 @@ import reactor.netty.http.client.HttpClient;
 public class Client {
     //Пример запросов с клиента
 
-
     Mono<String> get(Object value){
         return getClient()
                 .post()

@@ -1,6 +1,7 @@
 package org.example.abstraction.service;
 
 import org.example.repository.TaskRepo;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.sql.Time;
@@ -14,6 +15,7 @@ public interface TaskService {
     Mono<Long> addTask(AddTaskDto addTaskDto);
     Mono<Void> deleteTask(Long id);
     Mono<Long> updateTask(EditTaskDto editEventDto, Long id);
+    Flux<TaskDto> getByType(Integer type);
 
     record AddTaskDto(
             Long id_user,

@@ -3,6 +3,7 @@ package org.example.controller;
 import org.example.abstraction.service.TaskService;
 import org.example.abstraction.service.UserService;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -22,4 +23,8 @@ public record TaskController(
 
     @PostMapping("/updateTask/{id}")
     public Mono<Long> updateById(@RequestBody TaskService.EditTaskDto editEventDto, @PathVariable Long id) {return taskService.updateTask(editEventDto, id);}
+    @GetMapping("/getTasks/{type}")
+    public Flux<TaskService.TaskDto> findByDatetime(@PathVariable Integer type){
+        return taskService.getByType(type);
+    }
 }
