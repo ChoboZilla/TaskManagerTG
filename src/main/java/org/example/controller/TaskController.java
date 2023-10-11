@@ -16,4 +16,10 @@ public record TaskController(
 
     @PostMapping("/addTask")
     public Mono<Long> findById(@RequestBody TaskService.AddTaskDto addTaskDto) {return taskService.addTask(addTaskDto);}
+
+    @DeleteMapping("/deleteTask/{id}")
+    public Mono<Void> deleteById(@PathVariable Long id) {return taskService.deleteTask(id);}
+
+    @PostMapping("/updateTask/{id}")
+    public Mono<Long> updateById(@RequestBody TaskService.EditTaskDto editEventDto, @PathVariable Long id) {return taskService.updateTask(editEventDto, id);}
 }

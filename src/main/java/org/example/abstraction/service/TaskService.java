@@ -12,11 +12,13 @@ public interface TaskService {
     Mono<TaskDto> getById(Long id);
 
     Mono<Long> addTask(AddTaskDto addTaskDto);
+    Mono<Void> deleteTask(Long id);
+    Mono<Long> updateTask(EditTaskDto editEventDto, Long id);
 
     record AddTaskDto(
             Long id_user,
             String message,
-            Integer tupe,
+            Integer type,
             Instant deadline,
             Boolean isdone
     ){
@@ -25,7 +27,7 @@ public interface TaskService {
                     null,
                     addTaskDto.id_user(),
                     addTaskDto.message(),
-                    addTaskDto.tupe(),
+                    addTaskDto.type(),
                     addTaskDto.deadline(),
                     false
             );
@@ -36,7 +38,7 @@ public interface TaskService {
             Long id,
             Long id_user,
             String message,
-            Integer tupe,
+            Integer type,
             Instant deadline,
             Boolean isdone
     ){
@@ -48,6 +50,25 @@ public interface TaskService {
                     task.type(),
                     task.deadline(),
                     task.isdone()
+            );
+        }
+    }
+
+    record EditTaskDto(
+            Long id_user,
+            String message,
+            Integer type,
+            Instant deadline,
+            Boolean isdone
+    ){
+        public static TaskRepo.Task toDbEntity(EditTaskDto editTaskDto, Long id){
+            return new TaskRepo.Task(
+                    id,
+                    editTaskDto.id_user(),
+                    editTaskDto.message(),
+                    editTaskDto.type(),
+                    editTaskDto.deadline(),
+                    false
             );
         }
     }

@@ -25,4 +25,17 @@ public class TaskServiceImpl implements TaskService {
                 .save(AddTaskDto.toDbEntity(addTaskDto))
                 .map(TaskRepo.Task::id);
     }
+
+    @Override
+    public Mono<Void> deleteTask(Long id) {
+        return taskRepo
+                .deleteById(id);
+    }
+
+    @Override
+    public Mono<Long> updateTask(EditTaskDto editTaskDto, Long id) {
+        return taskRepo
+                .save(EditTaskDto.toDbEntity(editTaskDto, id))
+                .map(TaskRepo.Task::id);
+    }
 }
