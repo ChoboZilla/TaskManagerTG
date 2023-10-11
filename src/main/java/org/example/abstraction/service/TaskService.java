@@ -3,7 +3,10 @@ package org.example.abstraction.service;
 import org.example.repository.TaskRepo;
 import reactor.core.publisher.Mono;
 
+import java.sql.Time;
 import java.time.Instant;
+import java.time.LocalTime;
+import java.util.Date;
 
 public interface TaskService {
     Mono<TaskDto> getById(Long id);
@@ -11,16 +14,18 @@ public interface TaskService {
     Mono<Long> addTask(AddTaskDto addTaskDto);
 
     record AddTaskDto(
-            Long userId,
-            String comments,
-            Instant deadline
+            Long id_user,
+            String message,
+            Integer tupe,
+            Instant deadline,
+            Boolean isdone
     ){
         public static TaskRepo.Task toDbEntity(AddTaskDto addTaskDto){
             return new TaskRepo.Task(
                     null,
-                    addTaskDto.userId(),
-                    addTaskDto.comments(),
-                    Instant.now(),
+                    addTaskDto.id_user(),
+                    addTaskDto.message(),
+                    addTaskDto.tupe(),
                     addTaskDto.deadline(),
                     false
             );
@@ -29,18 +34,20 @@ public interface TaskService {
 
     record TaskDto(
             Long id,
-            Long userId,
-            String comments,
-            Instant createdAt,
-            Instant deadline
+            Long id_user,
+            String message,
+            Integer tupe,
+            Instant deadline,
+            Boolean isdone
     ){
         public static TaskDto fromDbEntity(TaskRepo.Task task){
             return new TaskDto(
                     task.id(),
-                    task.userId(),
-                    task.comments(),
-                    task.createdAt(),
-                    task.deadline()
+                    task.id_user(),
+                    task.message(),
+                    task.type(),
+                    task.deadline(),
+                    task.isdone()
             );
         }
     }

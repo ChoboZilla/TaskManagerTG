@@ -18,4 +18,11 @@ public class UserServiceImpl implements UserService {
                 .findById(id)
                 .map(UserDto::fromDbEntity);
     }
+    @Override
+    public Mono<Long> addUser(UserService.AddUserDto addUserDto) {
+        return userRepo
+                .save(UserService.AddUserDto.toDbEntity(addUserDto))
+                .map(UserRepo.User::id);
+    }
+
 }

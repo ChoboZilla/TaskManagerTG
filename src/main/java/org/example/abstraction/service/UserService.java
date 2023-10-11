@@ -5,6 +5,7 @@ import reactor.core.publisher.Mono;
 
 public interface UserService {
     Mono<UserDto> getById(Long id);
+    Mono<Long> addUser(UserService.AddUserDto addUserDto);
 
     record UserDto(
             Long id,
@@ -23,6 +24,26 @@ public interface UserService {
                     user.sname(),
                     user.login(),
                     user.password()
+            );
+        }
+    }
+
+    record AddUserDto(
+            String fname,
+
+            String sname,
+
+            String login,
+
+            String password
+    ){
+        public static UserRepo.User toDbEntity(UserService.AddUserDto addUserDto){
+            return new UserRepo.User(
+                    null,
+                    addUserDto.fname(),
+                    addUserDto.sname(),
+                    addUserDto.login(),
+                    addUserDto.password()
             );
         }
     }
