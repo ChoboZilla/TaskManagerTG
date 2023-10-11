@@ -31,7 +31,7 @@ public record TaskController(
         return taskService.getByType(type);
     }
 
-    @GetMapping("/getEvents/{deadline}")
+    @GetMapping("/getTasks/{deadline}")
     public Flux<TaskService.TaskDto> findByDeadline(@PathVariable Instant deadline){
         return taskService.getByDeadline(deadline);
     }
