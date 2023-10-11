@@ -17,6 +17,10 @@ public interface TaskService {
     Mono<Long> updateTask(EditTaskDto editEventDto, Long id);
     Flux<TaskDto> getByType(Integer type);
 
+    Flux<TaskDto> getByDeadline(Instant deadline);
+    Flux<TaskDto> getDay(Instant datetime);
+    Flux<TaskDto> getWeek(Instant datetime);
+
     record AddTaskDto(
             Long id_user,
             String message,

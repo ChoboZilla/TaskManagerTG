@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Instant;
+
 @Service
 public class TaskServiceImpl implements TaskService {
 
@@ -43,6 +45,28 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Flux<TaskDto> getByType(Integer type) {
         return taskRepo
-                .findByType(type);
+                .findByType(type)
+                .map(TaskDto::fromDbEntity);
     }
+    @Override
+    public Flux<TaskDto> getByDeadline(Instant datetime) {
+        return taskRepo
+                .findByDeadline(datetime)
+                .map(TaskDto::fromDbEntity);
+    }
+
+    @Override
+    public Flux<TaskDto> getDay(Instant datetime) {
+        return taskRepo
+                .findAllByDeadlineLessThan(datetime.plusSeconds(86400))
+                .map(TaskDto::fromDbEntity);
+    }
+
+    @Override
+    public Flux<TaskDto> getWeek(Instant datetime) {
+        return taskRepo
+                .findAllByDeadlineLessThan(datetime.plusSeconds(604800))
+                .map(TaskDto::fromDbEntity);
+    }
+
 }

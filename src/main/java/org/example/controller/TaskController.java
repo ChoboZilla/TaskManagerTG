@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Instant;
+
 @RestController
 public record TaskController(
         TaskService taskService
@@ -23,8 +25,25 @@ public record TaskController(
 
     @PostMapping("/updateTask/{id}")
     public Mono<Long> updateById(@RequestBody TaskService.EditTaskDto editEventDto, @PathVariable Long id) {return taskService.updateTask(editEventDto, id);}
+
     @GetMapping("/getTasks/{type}")
-    public Flux<TaskService.TaskDto> findByDatetime(@PathVariable Integer type){
+    public Flux<TaskService.TaskDto> findByType(@PathVariable Integer type){
         return taskService.getByType(type);
     }
+
+    @GetMapping("/getEvents/{deadline}")
+    public Flux<TaskService.TaskDto> findByDeadline(@PathVariable Instant deadline){
+        return taskService.getByDeadline(deadline);
+    }
+
+    @GetMapping("/getDay")
+    public Flux<TaskService.TaskDto> findDay(){
+        return taskService.getDay(Instant.now());
+    }
+
+    @GetMapping("/getWeek")
+    public Flux<TaskService.TaskDto> findWeek(){
+        return taskService.getWeek(Instant.now());
+    }
+
 }
