@@ -12,8 +12,8 @@ import java.time.Instant;
 public record TaskController(
         TaskService taskService
 ) {
-    @GetMapping("/getTask/{id}")
-    public Mono<TaskService.TaskDto> findByid(@PathVariable Long id){
+    @GetMapping("/getTaskI/{id}")
+    public Mono<TaskService.TaskDto> findById(@PathVariable Long id){
         return taskService.getById(id);
     }
 

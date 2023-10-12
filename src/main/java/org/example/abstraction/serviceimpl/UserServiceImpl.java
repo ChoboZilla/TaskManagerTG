@@ -25,4 +25,10 @@ public class UserServiceImpl implements UserService {
                 .map(UserRepo.User::id);
     }
 
+    @Override
+    public Mono<UserDto> signIn(UserService.SignInDto signInDto) {
+        return userRepo
+                .signIn(signInDto.login(), signInDto.password())
+                .map(UserDto::fromDbEntity);
+    }
 }

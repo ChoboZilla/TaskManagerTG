@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.example.abstraction.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,4 +19,18 @@ public record UserController(
 
     @PostMapping("/addUser")
     public Mono<Long> addUser(@RequestBody UserService.AddUserDto addUserDto) {return userService.addUser(addUserDto);}
+
+    @PostMapping("/signUp")
+    public Mono<Long> signUp(@RequestBody UserService.AddUserDto addUserDto) {return userService.addUser(addUserDto);}
+
+    @PostMapping("/signIn")
+    public Mono<UserService.UserDto> signIn(@RequestBody UserService.SignInDto signInDto, HttpServletResponse response) {
+        return userService.signIn(signInDto)
+                .doOnNext(user -> {
+                    var cookie = new Cookie("userId", String.valueOf(user.id()));
+                    cookie.setMaxAge(3600);
+                    cookie.setPath("/");
+                    response.addCookie(cookie );
+                });
+    }
 }

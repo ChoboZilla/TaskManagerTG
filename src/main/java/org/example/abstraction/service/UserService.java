@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono;
 public interface UserService {
     Mono<UserDto> getById(Long id);
     Mono<Long> addUser(UserService.AddUserDto addUserDto);
-
+    Mono<UserDto> signIn(UserService.SignInDto signInDto);
     record UserDto(
             Long id,
             String fname,
@@ -47,4 +47,9 @@ public interface UserService {
             );
         }
     }
+
+    record SignInDto(
+            String login,
+            String password
+    ){}
 }
