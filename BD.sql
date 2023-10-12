@@ -32,7 +32,7 @@ CREATE TABLE `task` (
   PRIMARY KEY (`id`),
   KEY `userFK_idx` (`id_user`),
   CONSTRAINT `userFK` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `task` (
 
 LOCK TABLES `task` WRITE;
 /*!40000 ALTER TABLE `task` DISABLE KEYS */;
-INSERT INTO `task` VALUES (1,1,'Сделай лабу',0,'2023-10-12 12:00:00',0),(3,2,'Дота 2',2,'2023-10-11 22:14:10',0),(4,1,'Сделай лабу',2,'2023-10-12 12:00:00',0),(5,1,'Сделай лабу',3,'2023-10-12 12:00:00',0),(6,2,'Дота 2',4,'2023-10-15 19:14:10',0);
+INSERT INTO `task` VALUES (1,1,'Дота 2',0,'2023-10-15 18:30:00',0),(2,2,'Доклад',0,'2023-10-13 12:30:00',0),(3,2,'лаба',4,'2023-10-14 18:30:00',0),(4,1,'Покушать',2,'2023-10-14 12:30:00',0);
 /*!40000 ALTER TABLE `task` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Николай','Чеботарев','-','-'),(2,'Кирилл','Чалков','CrKot','Dota');
+INSERT INTO `user` VALUES (1,'Николай','Чеботарев','root','root'),(2,'Кирилл','Чалков','kot','1234');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -81,4 +81,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-11 23:51:56
+-- Dump completed on 2023-10-12 12:49:16
