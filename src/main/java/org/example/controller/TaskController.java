@@ -26,12 +26,12 @@ public record TaskController(
     @PostMapping("/updateTask/{id}")
     public Mono<Long> updateById(@RequestBody TaskService.EditTaskDto editEventDto, @PathVariable Long id) {return taskService.updateTask(editEventDto, id);}
 
-    @GetMapping("/getTasks/{type}")
+    @GetMapping("/getTasksT/{type}")
     public Flux<TaskService.TaskDto> findByType(@PathVariable Integer type){
         return taskService.getByType(type);
     }
 
-    @GetMapping("/getTasks/{deadline}")
+    @GetMapping("/getTasksD/{deadline}")
     public Flux<TaskService.TaskDto> findByDeadline(@PathVariable Instant deadline){
         return taskService.getByDeadline(deadline);
     }
