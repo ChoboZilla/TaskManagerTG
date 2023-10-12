@@ -10,7 +10,7 @@
 
 ## Task:
 1. Для определения рекурентности задачи в БД поле type (0 - одноразовая, 1 - почасовая, 2 - ежедневная, 3 - еженедельная, 4 - ежемесячная)
-2. Возможность get (GET /getTask/{id} )
+2. Возможность get (GET /getTaskI/{id} )
 3. Возможность add (POST /addTask + тело)
 4. Возможность delete по id (DELETE /deleteTask/{id} )
 5. Возможность update по id (POST /updateTask/{id} + тело)
