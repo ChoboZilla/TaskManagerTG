@@ -1,4 +1,4 @@
-package org.example.abstraction.service;
+package org.example.server.abstraction.service;
 
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Service;

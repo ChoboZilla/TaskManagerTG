@@ -1,13 +1,11 @@
-package org.example.abstraction.service;
+package org.example.server.abstraction.service;
 
-import org.example.repository.TaskRepo;
+import org.example.server.repository.TaskRepo;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.sql.Time;
 import java.time.Instant;
-import java.time.LocalTime;
-import java.util.Date;
+import java.util.List;
 
 public interface TaskService {
     Mono<TaskDto> getById(Long id);
@@ -18,7 +16,7 @@ public interface TaskService {
     Flux<TaskDto> getByType(Integer type);
 
     Flux<TaskDto> getByDeadline(Instant deadline);
-    Flux<TaskDto> getDay(Instant datetime);
+    Mono<List<TaskDto>> getDay(Instant datetime);
     Flux<TaskDto> getWeek(Instant datetime);
 
     record AddTaskDto(

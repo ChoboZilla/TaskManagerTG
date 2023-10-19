@@ -1,4 +1,4 @@
-package org.example.repository;
+package org.example.server.repository;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.r2dbc.repository.Query;

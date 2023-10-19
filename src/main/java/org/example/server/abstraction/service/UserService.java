@@ -1,6 +1,6 @@
-package org.example.abstraction.service;
+package org.example.server.abstraction.service;
 
-import org.example.repository.UserRepo;
+import org.example.server.repository.UserRepo;
 import reactor.core.publisher.Mono;
 
 public interface UserService {

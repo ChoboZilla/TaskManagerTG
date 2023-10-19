@@ -1,9 +1,8 @@
-package org.example.controller;
+package org.example.server.controller;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.abstraction.service.UserService;
-import org.springframework.stereotype.Controller;
+import org.example.server.abstraction.service.UserService;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 

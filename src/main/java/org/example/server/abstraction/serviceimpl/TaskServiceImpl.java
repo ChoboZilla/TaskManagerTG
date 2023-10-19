@@ -1,13 +1,14 @@
-package org.example.abstraction.serviceimpl;
+package org.example.server.abstraction.serviceimpl;
 
-import org.example.abstraction.service.TaskService;
-import org.example.repository.TaskRepo;
+import org.example.server.abstraction.service.TaskService;
+import org.example.server.repository.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -56,10 +57,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Flux<TaskDto> getDay(Instant datetime) {
+    public Mono<List<TaskDto>> getDay(Instant datetime) {
         return taskRepo
                 .findAllByDeadlineLessThan(datetime.plusSeconds(86400))
-                .map(TaskDto::fromDbEntity);
+                .map(TaskDto::fromDbEntity)
+                .collectList();
     }
 
     @Override

@@ -1,12 +1,12 @@
-package org.example.controller;
+package org.example.server.controller;
 
-import org.example.abstraction.service.TaskService;
-import org.example.abstraction.service.UserService;
+import org.example.server.abstraction.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Instant;
+import java.util.List;
 
 @RestController
 public record TaskController(
@@ -37,7 +37,7 @@ public record TaskController(
     }
 
     @GetMapping("/getDay")
-    public Flux<TaskService.TaskDto> findDay(){
+    public Mono<List<TaskService.TaskDto>> findDay(){
         return taskService.getDay(Instant.now());
     }
 
