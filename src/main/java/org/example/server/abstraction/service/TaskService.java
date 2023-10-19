@@ -9,15 +9,14 @@ import java.util.List;
 
 public interface TaskService {
     Mono<TaskDto> getById(Long id);
-
     Mono<Long> addTask(AddTaskDto addTaskDto);
     Mono<Void> deleteTask(Long id);
     Mono<Long> updateTask(EditTaskDto editEventDto, Long id);
-    Flux<TaskDto> getByType(Integer type);
+    Mono<List<TaskDto>> getByType(Integer type);
 
     Flux<TaskDto> getByDeadline(Instant deadline);
     Mono<List<TaskDto>> getDay(Instant datetime);
-    Flux<TaskDto> getWeek(Instant datetime);
+    Mono<List<TaskDto>> getWeek(Instant datetime);
 
     record AddTaskDto(
             Long id_user,
@@ -49,7 +48,7 @@ public interface TaskService {
         public static TaskDto fromDbEntity(TaskRepo.Task task){
             return new TaskDto(
                     task.id(),
-                    task.id_user(),
+                    task.idUser(),
                     task.message(),
                     task.type(),
                     task.deadline(),

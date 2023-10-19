@@ -44,10 +44,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Flux<TaskDto> getByType(Integer type) {
+    public Mono<List<TaskDto>> getByType(Integer type) {
         return taskRepo
                 .findByType(type)
-                .map(TaskDto::fromDbEntity);
+                .map(TaskDto::fromDbEntity)
+                .collectList();
     }
     @Override
     public Flux<TaskDto> getByDeadline(Instant datetime) {
@@ -65,10 +66,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Flux<TaskDto> getWeek(Instant datetime) {
+    public Mono<List<TaskDto>> getWeek(Instant datetime) {
         return taskRepo
                 .findAllByDeadlineLessThan(datetime.plusSeconds(604800))
-                .map(TaskDto::fromDbEntity);
+                .map(TaskDto::fromDbEntity)
+                .collectList();
     }
 
 }

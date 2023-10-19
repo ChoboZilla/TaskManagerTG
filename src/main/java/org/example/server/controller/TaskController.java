@@ -27,7 +27,7 @@ public record TaskController(
     public Mono<Long> updateById(@RequestBody TaskService.EditTaskDto editEventDto, @PathVariable Long id) {return taskService.updateTask(editEventDto, id);}
 
     @GetMapping("/getTasksT/{type}")
-    public Flux<TaskService.TaskDto> findByType(@PathVariable Integer type){
+    public Mono<List<TaskService.TaskDto>> findByType(@PathVariable Integer type){
         return taskService.getByType(type);
     }
 
@@ -42,7 +42,7 @@ public record TaskController(
     }
 
     @GetMapping("/getWeek")
-    public Flux<TaskService.TaskDto> findWeek(){
+    public Mono<List<TaskService.TaskDto>> findWeek(){
         return taskService.getWeek(Instant.now());
     }
 

@@ -71,6 +71,8 @@ public class TaskManagerBot extends TelegramLongPollingBot {
         switch (messages[0]) {
             case HELP -> helpCommand(chatId);
             case DAILY_TASK -> dailyTask(chatId);
+            case WEEKLY_TASK -> weeklyTask(chatId);
+            case RECUR_TASK -> recurTask(chatId);
             case ADD_TASK -> addTask(chatId, messages[1], messages[2], messages[3], messages[4]);
         }
     }
@@ -116,19 +118,86 @@ public class TaskManagerBot extends TelegramLongPollingBot {
         sendMessage(chatId, msg);
     }
 
+    private void weeklyTask(Long chatId) {
+        var msg = taskService.getWeek(Instant.now())
+                .block()
+                .stream()
+                .map(task -> "Задача: " + task.message() + " с дедлайном: " + task.deadline())
+                .toList()
+                .toString();
+        msg = msg.replace("[",  "");
+        msg = msg.replace("]",  "");
+        msg = msg.replace("T",  " ");
+        msg = msg.replace("Z",  " ");
+        msg = msg.replaceAll(",", ",\n");
+
+        msg = "Задачи на ближайшую неделю:\n" + msg;
+
+        sendMessage(chatId, msg);
+    }
+    private  void recurTask(Long chatId) {
+        var msg = taskService.getByType(1)
+                .block()
+                .stream()
+                .map(task -> "Задача: " + task.message() + " с дедлайном: " + task.deadline())
+                .toList()
+                .toString();
+        msg = msg.replace("[",  "");
+        msg = msg.replace("]",  "");
+        msg = msg.replace("T",  " ");
+        msg = msg.replace("Z",  " ");
+        msg = msg.replaceAll(",", ",\n");
+
+        var msg2 = taskService.getByType(2)
+                .block()
+                .stream()
+                .map(task -> "Задача: " + task.message() + " с дедлайном: " + task.deadline())
+                .toList()
+                .toString();
+        msg2 = msg2.replace("[",  "");
+        msg2 = msg2.replace("]",  "");
+        msg2 = msg2.replace("T",  " ");
+        msg2 = msg2.replace("Z",  " ");
+        msg2 = msg2.replaceAll(",", ",\n");
+
+        var msg3 = taskService.getByType(3)
+                .block()
+                .stream()
+                .map(task -> "Задача: " + task.message() + " с дедлайном: " + task.deadline())
+                .toList()
+                .toString();
+        msg3 = msg3.replace("[",  "");
+        msg3 = msg3.replace("]",  "");
+        msg3 = msg3.replace("T",  " ");
+        msg3 = msg3.replace("Z",  " ");
+        msg3 = msg3.replaceAll(",", ",\n");
+
+        var msg4 = taskService.getByType(4)
+                .block()
+                .stream()
+                .map(task -> "Задача: " + task.message() + " с дедлайном: " + task.deadline())
+                .toList()
+                .toString();
+        msg4 = msg4.replace("[",  "");
+        msg4 = msg4.replace("]",  "");
+        msg4 = msg4.replace("T",  " ");
+        msg4 = msg4.replace("Z",  " ");
+        msg4 = msg4.replaceAll(",", ",\n");
+
+        var finMsg = msg + "\n" + msg2 + "\n" + msg3 + "\n" + msg4;
+
+        sendMessage(chatId, finMsg);
+    }
     private void addTask(Long chatId, String mes, String type, String deadlineD, String deadlinedT) {
         String input = deadlineD + "; " + deadlinedT;
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd; HH:mm:ss");
-
         try {
             Date dateTime = sf.parse(input);
-            AddTaskDto task = new AddTaskDto((long)1 , mes, Integer.valueOf(type), dateTime.toInstant(), false);
-            taskService.addTask(task);
+            AddTaskDto task = new AddTaskDto(1L , mes, Integer.valueOf(type), dateTime.toInstant(), false);
+            taskService.addTask(task).block();
             sendMessage(chatId, "Успешно добавлено!");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
     }
 }

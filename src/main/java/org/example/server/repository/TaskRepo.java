@@ -17,7 +17,7 @@ public interface TaskRepo extends ReactiveCrudRepository<TaskRepo.Task, Long> {
     record Task(
             @Id
             Long id,
-            Long id_user,
+            Long idUser,
             String message,
             Integer type,
             Instant deadline,
