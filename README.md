@@ -4,6 +4,9 @@
 Для тестирования использовался 
 **Postman**
 
+## Telegram bot
+Ссылка на телеграмм бота - [Task Manager Bot](t.me/HSAI23_TaskManager_bot)
+
 ## User:
 1. Возможность get по id (GET /getUser/{id} )
 2. Возможность Sign Up (POST /addUser и тело)
