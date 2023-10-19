@@ -1,4 +1,4 @@
-package org.example.telegram.exception;
+package org.hsai.telegram.exception;
 
 public class ServiceException extends Exception {
 

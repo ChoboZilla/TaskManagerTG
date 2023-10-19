@@ -1,7 +1,7 @@
-package org.example.telegram.configuration;
+package org.hsai.telegram.configuration;
 
 import com.squareup.okhttp.OkHttpClient;
-import org.example.telegram.bot.TaskManagerBot;
+import org.hsai.telegram.bot.TaskManagerBot;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.telegram.telegrambots.meta.TelegramBotsApi;

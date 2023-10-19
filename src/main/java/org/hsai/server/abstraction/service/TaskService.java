@@ -1,6 +1,6 @@
-package org.example.server.abstraction.service;
+package org.hsai.server.abstraction.service;
 
-import org.example.server.repository.TaskRepo;
+import org.hsai.server.repository.TaskRepo;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

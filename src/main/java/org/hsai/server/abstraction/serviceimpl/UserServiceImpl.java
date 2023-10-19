@@ -1,7 +1,7 @@
-package org.example.server.abstraction.serviceimpl;
+package org.hsai.server.abstraction.serviceimpl;
 
-import org.example.server.abstraction.service.UserService;
-import org.example.server.repository.UserRepo;
+import org.hsai.server.abstraction.service.UserService;
+import org.hsai.server.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

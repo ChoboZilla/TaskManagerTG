@@ -1,6 +1,6 @@
-package org.example.server.controller;
+package org.hsai.server.controller;
 
-import org.example.server.abstraction.service.TaskService;
+import org.hsai.server.abstraction.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

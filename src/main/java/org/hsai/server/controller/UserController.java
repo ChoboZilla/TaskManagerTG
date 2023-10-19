@@ -1,8 +1,8 @@
-package org.example.server.controller;
+package org.hsai.server.controller;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.server.abstraction.service.UserService;
+import org.hsai.server.abstraction.service.UserService;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 

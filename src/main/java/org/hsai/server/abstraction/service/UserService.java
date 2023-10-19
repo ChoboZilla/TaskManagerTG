@@ -1,6 +1,6 @@
-package org.example.server.abstraction.service;
+package org.hsai.server.abstraction.service;
 
-import org.example.server.repository.UserRepo;
+import org.hsai.server.repository.UserRepo;
 import reactor.core.publisher.Mono;
 
 public interface UserService {

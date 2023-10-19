@@ -1,10 +1,9 @@
-package org.example.telegram.bot;
+package org.hsai.telegram.bot;
 
 
-import org.example.server.abstraction.service.TaskService;
-import org.example.server.abstraction.service.UserService;
-import org.example.server.controller.TaskController;
-import org.example.server.repository.TaskRepo;
+import org.hsai.server.abstraction.service.TaskService;
+import org.hsai.server.abstraction.service.UserService;
+import org.hsai.server.controller.TaskController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,18 +13,14 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Flux;
 
-import org.example.server.abstraction.service.TaskService.AddTaskDto;
-import org.example.server.abstraction.service.TaskService.EditTaskDto;
+import org.hsai.server.abstraction.service.TaskService.AddTaskDto;
+import org.hsai.server.abstraction.service.TaskService.EditTaskDto;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.Locale;
 
 @Component
 public class TaskManagerBot extends TelegramLongPollingBot {

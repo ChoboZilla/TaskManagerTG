@@ -1,8 +1,8 @@
-package org.example.telegram.client;
+package org.hsai.telegram.client;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
-import org.example.telegram.exception.ServiceException;
+import org.hsai.telegram.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
