@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
 
 import org.example.server.abstraction.service.TaskService.AddTaskDto;
+import org.example.server.abstraction.service.TaskService.EditTaskDto;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,6 +45,7 @@ public class TaskManagerBot extends TelegramLongPollingBot {
     private static final String SIGN_UP = "/signup";
     private static final String SHOW_TASK = "/show_task";
     private static final String ADD_TASK = "/add_task";
+    private static final String UPDATE_TASK = "/update_task";
     private static final String DELETE_TASK = "/delete_task";
     private static final String DAILY_TASK = "/daily_tasks";
     private static final String WEEKLY_TASK = "/weekly_tasks";
@@ -74,6 +76,8 @@ public class TaskManagerBot extends TelegramLongPollingBot {
             case WEEKLY_TASK -> weeklyTask(chatId);
             case RECUR_TASK -> recurTask(chatId);
             case ADD_TASK -> addTask(chatId, messages[1], messages[2], messages[3], messages[4]);
+            case UPDATE_TASK -> updateTask(chatId, messages[1], messages[2], messages[3], messages[4], messages[5]);
+            case DELETE_TASK -> deleteTask(chatId, messages[1]);
         }
     }
 
@@ -99,12 +103,11 @@ public class TaskManagerBot extends TelegramLongPollingBot {
             LOG.error("Sending message error", e);
         }
     }
-
     private void dailyTask(Long chatId) {
         var msg = taskService.getDay(Instant.now())
                 .block()
                 .stream()
-                .map(task -> "Задача: " + task.message() + " с дедлайном: " + task.deadline())
+                .map(task -> "Номер: " + task.id() + " Задача: " + task.message() + " с дедлайном: " + task.deadline())
                 .toList()
                 .toString();
         msg = msg.replace("[",  "");
@@ -117,12 +120,11 @@ public class TaskManagerBot extends TelegramLongPollingBot {
 
         sendMessage(chatId, msg);
     }
-
     private void weeklyTask(Long chatId) {
         var msg = taskService.getWeek(Instant.now())
                 .block()
                 .stream()
-                .map(task -> "Задача: " + task.message() + " с дедлайном: " + task.deadline())
+                .map(task -> "Номер: " + task.id() + "Задача: " + task.message() + " с дедлайном: " + task.deadline())
                 .toList()
                 .toString();
         msg = msg.replace("[",  "");
@@ -139,7 +141,7 @@ public class TaskManagerBot extends TelegramLongPollingBot {
         var msg = taskService.getByType(1)
                 .block()
                 .stream()
-                .map(task -> "Задача: " + task.message() + " с дедлайном: " + task.deadline())
+                .map(task -> "Номер: " + task.id() + "Задача: " + task.message() + " с дедлайном: " + task.deadline())
                 .toList()
                 .toString();
         msg = msg.replace("[",  "");
@@ -192,12 +194,28 @@ public class TaskManagerBot extends TelegramLongPollingBot {
         String input = deadlineD + "; " + deadlinedT;
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd; HH:mm:ss");
         try {
-            Date dateTime = sf.parse(input);
+            Date dateTime = sf.parse(input); // 1L - временная заглушка
             AddTaskDto task = new AddTaskDto(1L , mes, Integer.valueOf(type), dateTime.toInstant(), false);
             taskService.addTask(task).block();
             sendMessage(chatId, "Успешно добавлено!");
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+    private void updateTask(Long chatId, String id, String mes, String type, String deadlineD, String deadlinedT) {
+        String input = deadlineD + "; " + deadlinedT;
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd; HH:mm:ss");
+        try {
+            Date dateTime = sf.parse(input);
+            EditTaskDto task  = new EditTaskDto(1L , mes, Integer.valueOf(type), dateTime.toInstant(), false);
+            taskService.updateTask(task,Long.valueOf(id)).block();
+            sendMessage(chatId, "Успешно обновлено!");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+    private void deleteTask(Long chatId, String id) {
+        taskService.deleteTask(Long.valueOf(id)).block();
+        sendMessage(chatId, "Успешно удалено!");
     }
 }
