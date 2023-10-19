@@ -5,7 +5,7 @@
 **Postman**
 
 ## Telegram bot
-Ссылка на телеграмм бота - [Task Manager Bot](t.me/HSAI23_TaskManager_bot)
+Ссылка на телеграмм бота - [Task Manager Bot](http://t.me/HSAI23_TaskManager_bot)
 
 ## User:
 1. Возможность get по id (GET /getUser/{id} )
