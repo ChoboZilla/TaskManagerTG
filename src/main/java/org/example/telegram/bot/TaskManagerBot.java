@@ -53,10 +53,14 @@ public class TaskManagerBot extends TelegramLongPollingBot {
 
 
     private static final String COMMANDS = """
-                You can use these commands:
-                /some text \040\040\040\040\040\040\040\040\040\040\040\040
-                -----
-                /help - get help
+                Доступны следующие команды:\n
+                /add_task <Название> <Тип> <Дата дедлайна> <Время дедлайна> - добавить задание. Тип: 0 для неповторяющегося, 1 для почасовой, 2 для ежедневной, 3 для еженедельной и 4 для ежемесячной.\n
+                /update_task <ID> <Название> <Тип> <Дата дедлайна> <Время дедлайна> - обновить описание существующей задачи.\n
+                /delete_task <ID> - удалить задание.\n
+                /daily_tasks - вывести задачи на день.\n
+                /weekly_tasks - вывести задачи на неделю.\n
+                /recur_tasks - вывести все повторяемые задания.\n
+                /help - вывести список команд
             """;
 
     public TaskManagerBot(@Value("${bot.token}") String botToken) {
@@ -87,9 +91,7 @@ public class TaskManagerBot extends TelegramLongPollingBot {
     }
 
     private void helpCommand(Long chatId) {
-        var text = """
-                Bot background information
-                                
+        var text = """          
                 %s
                 """;
         sendMessage(chatId, text.formatted(COMMANDS));
