@@ -4,10 +4,13 @@
 Для тестирования использовался 
 **Postman**
 
+## Telegram bot
+Ссылка на телеграмм бота - [Task Manager Bot](http://t.me/HSAI23_TaskManager_bot)
+
 ## User:
 1. Возможность get по id (GET /getUser/{id} )
-2. Возможность add (POST /addUser и тело)
-3. Sign In, Sign Up
+2. Возможность Sign Up (POST /addUser и тело)
+3. Возможность Sign In (POST /signIn и тело)
 
 ## Task:
 1. Для определения рекурентности задачи в БД поле type (0 - одноразовая, 1 - почасовая, 2 - ежедневная, 3 - еженедельная, 4 - ежемесячная)
