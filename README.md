@@ -1,9 +1,8 @@
-# Task Management
+# TaskManagerT --- WATCH BRANCH pudge
 
 Практически полностью реализован функционал сервера (все нужные операции). Использованы r2dbc, webflux, MySQL.
 Для тестирования использовался 
 **Postman**
-
 ## Telegram bot
 Ссылка на телеграмм бота - [Task Manager Bot](http://t.me/HSAI23_TaskManager_bot)
 
@@ -23,6 +22,12 @@
                 
 /help - вывести список команд
 
+![image](https://github.com/ChoboZilla/TaskManagerTG/assets/100492375/c64869cc-46fd-429e-bfb5-87f48dc38fa4)
+
+![image](https://github.com/ChoboZilla/TaskManagerTG/assets/100492375/f30d124f-2232-43d6-a116-a7a036f0ab1d)
+
+![image](https://github.com/ChoboZilla/TaskManagerTG/assets/100492375/8e0c04ce-f584-4f2a-80ec-c32665abad90)
+
 ## User:
 1. Возможность get по id (GET /getUser/{id} )
 2. Возможность Sign Up (POST /addUser и тело)
@@ -41,5 +46,3 @@
 ## Идеи на будущее:
 1. В клиенте реализовать шедулер (каждую минуту), чтобы проверять задачи на конец дедлайна.
 2. Когда у задачи подходит дедлайн: одноразовая (с type=0) удаляется, у рекурентных происходит инкримент поля deadline на соотв.величину
-
-
