@@ -23,7 +23,7 @@
                 
 /help - вывести список команд
 
-![image](https://github.com/ChoboZilla/TaskManagerTG/assets/100492375/c64869cc-46fd-429e-bfb5-87f48dc38fa4)
+![image](https://github.com/ChoboZilla/TaskManagerTG/assets/100492375/c45ac31f-bb2d-4c8c-8817-cd43bc034656)
 
 ![image](https://github.com/ChoboZilla/TaskManagerTG/assets/100492375/f30d124f-2232-43d6-a116-a7a036f0ab1d)
 
