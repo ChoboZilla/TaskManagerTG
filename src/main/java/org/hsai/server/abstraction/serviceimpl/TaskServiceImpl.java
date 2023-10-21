@@ -44,9 +44,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Mono<List<TaskDto>> getByType(Integer type) {
+    public Mono<List<TaskDto>> getByType(Integer type, Long id) {
         return taskRepo
-                .findByType(type)
+                .findByType(type, id)
                 .map(TaskDto::fromDbEntity)
                 .collectList();
     }

@@ -23,7 +23,11 @@ public interface TaskRepo extends ReactiveCrudRepository<TaskRepo.Task, Long> {
             Instant deadline,
             Boolean isdone
     ){}
-    Flux<TaskRepo.Task>findByType(@Param("type") Integer type);
+    @Query("SELECT * " +
+            "FROM task " +
+            "WHERE task.type = :type AND task.id_user = :chatId " +
+            "ORDER BY task.deadline")
+    Flux<TaskRepo.Task>findByType(Integer type, Long chatId);
     Flux<TaskRepo.Task> findByDeadline(Instant deadline);
     @Query("SELECT * " +
             "FROM task " +

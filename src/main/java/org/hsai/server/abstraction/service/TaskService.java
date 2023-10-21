@@ -12,7 +12,7 @@ public interface TaskService {
     Mono<Long> addTask(AddTaskDto addTaskDto);
     Mono<Void> deleteTask(Long id);
     Mono<Long> updateTask(EditTaskDto editEventDto, Long id);
-    Mono<List<TaskDto>> getByType(Integer type);
+    Mono<List<TaskDto>> getByType(Integer type, Long id);
 
     Flux<TaskDto> getByDeadline(Instant deadline);
     Mono<List<TaskDto>> getDay(Instant datetime, Long id);

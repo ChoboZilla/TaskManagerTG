@@ -27,8 +27,8 @@ public record TaskController(
     public Mono<Long> updateById(@RequestBody TaskService.EditTaskDto editEventDto, @PathVariable Long id) {return taskService.updateTask(editEventDto, id);}
 
     @GetMapping("/getTasksT/{type}")
-    public Mono<List<TaskService.TaskDto>> findByType(@PathVariable Integer type){
-        return taskService.getByType(type);
+    public Mono<List<TaskService.TaskDto>> findByType(@PathVariable Integer type, @PathVariable Long id){
+        return taskService.getByType(type, id);
     }
 
     @GetMapping("/getTasksD/{deadline}")

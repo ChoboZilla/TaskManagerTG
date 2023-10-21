@@ -162,7 +162,7 @@ public class TaskManagerBot extends TelegramLongPollingBot {
         sendMessage(chatId, msg);
     }
     private  void recurTask(Long chatId) {
-        var msg = taskService.getByType(1)
+        var msg = taskService.getByType(1, chatId)
                 .block()
                 .stream()
                 .map(task -> "Номер: " + task.id() + "Задача: " + task.message() + " с дедлайном: " + task.deadline())
@@ -174,7 +174,7 @@ public class TaskManagerBot extends TelegramLongPollingBot {
         msg = msg.replace("Z",  " ");
         msg = msg.replaceAll(",", ",\n");
 
-        var msg2 = taskService.getByType(2)
+        var msg2 = taskService.getByType(2, chatId)
                 .block()
                 .stream()
                 .map(task -> "Задача: " + task.message() + " с дедлайном: " + task.deadline())
@@ -186,7 +186,7 @@ public class TaskManagerBot extends TelegramLongPollingBot {
         msg2 = msg2.replace("Z",  " ");
         msg2 = msg2.replaceAll(",", ",\n");
 
-        var msg3 = taskService.getByType(3)
+        var msg3 = taskService.getByType(3, chatId)
                 .block()
                 .stream()
                 .map(task -> "Задача: " + task.message() + " с дедлайном: " + task.deadline())
@@ -198,7 +198,7 @@ public class TaskManagerBot extends TelegramLongPollingBot {
         msg3 = msg3.replace("Z",  " ");
         msg3 = msg3.replaceAll(",", ",\n");
 
-        var msg4 = taskService.getByType(4)
+        var msg4 = taskService.getByType(4, chatId)
                 .block()
                 .stream()
                 .map(task -> "Задача: " + task.message() + " с дедлайном: " + task.deadline())
