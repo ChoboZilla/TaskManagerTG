@@ -7,6 +7,11 @@
 Ссылка на телеграмм бота - [Task Manager Bot](http://t.me/HSAI23_TaskManager_bot)
 
 Доступны следующие команды:
+/start - Добавит пользователя и его ID чата в базу данных.
+
+/help - вывести список команд
+
+**Все get команды возвращают задачи, связанные с конкретным пользователем!**
 
 /add_task <Название> <Тип> <Дата дедлайна> <Время дедлайна> - добавить задание. Тип: 0 для неповторяющегося, 1 для почасовой, 2 для ежедневной, 3 для еженедельной и 4 для ежемесячной.
                 
@@ -20,9 +25,8 @@
                 
 /recur_tasks - вывести все повторяемые задания.
                 
-/help - вывести список команд
 
-![image](https://github.com/ChoboZilla/TaskManagerTG/assets/100492375/c64869cc-46fd-429e-bfb5-87f48dc38fa4)
+![image](https://github.com/ChoboZilla/TaskManagerTG/assets/100492375/c45ac31f-bb2d-4c8c-8817-cd43bc034656)
 
 ![image](https://github.com/ChoboZilla/TaskManagerTG/assets/100492375/f30d124f-2232-43d6-a116-a7a036f0ab1d)
 
