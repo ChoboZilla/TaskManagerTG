@@ -3,6 +3,7 @@ package org.hsai.server.controller;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.hsai.server.abstraction.service.UserService;
+import org.hsai.server.repository.UserRepo;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -17,10 +18,10 @@ public record UserController(
     }
 
     @PostMapping("/addUser")
-    public Mono<Long> addUser(@RequestBody UserService.AddUserDto addUserDto) {return userService.addUser(addUserDto);}
+    public Mono<UserRepo.User> addUser(@RequestBody UserService.AddUserDto addUserDto, @PathVariable Long id) { return userService.addUser(addUserDto, id);}
 
     @PostMapping("/signUp")
-    public Mono<Long> signUp(@RequestBody UserService.AddUserDto addUserDto) {return userService.addUser(addUserDto);}
+    public Mono<UserRepo.User> signUp(@RequestBody UserService.AddUserDto addUserDto, @PathVariable Long id) { return userService.addUser(addUserDto, id);}
 
     @PostMapping("/signIn")
     public Mono<UserService.UserDto> signIn(@RequestBody UserService.SignInDto signInDto, HttpServletResponse response) {

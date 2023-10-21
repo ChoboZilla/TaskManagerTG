@@ -27,7 +27,7 @@ public interface TaskRepo extends ReactiveCrudRepository<TaskRepo.Task, Long> {
     Flux<TaskRepo.Task> findByDeadline(Instant deadline);
     @Query("SELECT * " +
             "FROM task " +
-            "WHERE task.deadline < :datetime " +
+            "WHERE task.deadline < :datetime AND task.id_user = :chatId " +
             "ORDER BY task.deadline")
-    Flux<TaskRepo.Task> findAllByDeadlineLessThan(Instant deadline); //Для поиска в пределах дня, недели
+    Flux<TaskRepo.Task> findAllByDeadlineLessThan(Instant deadline, Long chatId); //Для поиска в пределах дня, недели
 }

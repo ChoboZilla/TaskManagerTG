@@ -15,8 +15,8 @@ public interface TaskService {
     Mono<List<TaskDto>> getByType(Integer type);
 
     Flux<TaskDto> getByDeadline(Instant deadline);
-    Mono<List<TaskDto>> getDay(Instant datetime);
-    Mono<List<TaskDto>> getWeek(Instant datetime);
+    Mono<List<TaskDto>> getDay(Instant datetime, Long id);
+    Mono<List<TaskDto>> getWeek(Instant datetime, Long id);
 
     record AddTaskDto(
             Long id_user,

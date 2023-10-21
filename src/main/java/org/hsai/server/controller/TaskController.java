@@ -36,14 +36,14 @@ public record TaskController(
         return taskService.getByDeadline(deadline);
     }
 
-    @GetMapping("/getDay")
-    public Mono<List<TaskService.TaskDto>> findDay(){
-        return taskService.getDay(Instant.now());
+    @GetMapping("/getDay/{id}")
+    public Mono<List<TaskService.TaskDto>> findDay(@PathVariable Long id){
+        return taskService.getDay(Instant.now(), id);
     }
 
-    @GetMapping("/getWeek")
-    public Mono<List<TaskService.TaskDto>> findWeek(){
-        return taskService.getWeek(Instant.now());
+    @GetMapping("/getWeek/{id}")
+    public Mono<List<TaskService.TaskDto>> findWeek(@PathVariable Long id){
+        return taskService.getWeek(Instant.now(), id);
     }
 
 }

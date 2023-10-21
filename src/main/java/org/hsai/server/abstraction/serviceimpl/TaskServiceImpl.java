@@ -58,17 +58,17 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Mono<List<TaskDto>> getDay(Instant datetime) {
+    public Mono<List<TaskDto>> getDay(Instant datetime, Long id) {
         return taskRepo
-                .findAllByDeadlineLessThan(datetime.plusSeconds(86400))
+                .findAllByDeadlineLessThan(datetime.plusSeconds(86400), id)
                 .map(TaskDto::fromDbEntity)
                 .collectList();
     }
 
     @Override
-    public Mono<List<TaskDto>> getWeek(Instant datetime) {
+    public Mono<List<TaskDto>> getWeek(Instant datetime, Long id) {
         return taskRepo
-                .findAllByDeadlineLessThan(datetime.plusSeconds(604800))
+                .findAllByDeadlineLessThan(datetime.plusSeconds(604800), id)
                 .map(TaskDto::fromDbEntity)
                 .collectList();
     }

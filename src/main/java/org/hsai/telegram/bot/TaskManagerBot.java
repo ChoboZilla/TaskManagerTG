@@ -3,7 +3,9 @@ package org.hsai.telegram.bot;
 
 import org.hsai.server.abstraction.service.TaskService;
 import org.hsai.server.abstraction.service.UserService;
+
 import org.hsai.server.controller.TaskController;
+import org.hsai.server.controller.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,7 +18,12 @@ import org.slf4j.LoggerFactory;
 
 import org.hsai.server.abstraction.service.TaskService.AddTaskDto;
 import org.hsai.server.abstraction.service.TaskService.EditTaskDto;
+import reactor.core.publisher.Mono;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -33,6 +40,8 @@ public class TaskManagerBot extends TelegramLongPollingBot {
     UserService userService;
     @Autowired
     TaskController taskController;
+    @Autowired
+    UserController userController;
     Long user_id;
     private static final String START = "/start";
     private static final String HELP = "/help";
@@ -69,8 +78,11 @@ public class TaskManagerBot extends TelegramLongPollingBot {
         }
         var messages = update.getMessage().getText().split(" ");
         var chatId = update.getMessage().getChatId();
+        String userName = update.getMessage().getChat().getUserName();
         switch (messages[0]) {
+            case START -> startCommand(chatId, userName);
             case HELP -> helpCommand(chatId);
+            //case SIGN_UP -> singUp(chatId, messages[1], messages[2], messages[3], messages[4]);
             case DAILY_TASK -> dailyTask(chatId);
             case WEEKLY_TASK -> weeklyTask(chatId);
             case RECUR_TASK -> recurTask(chatId);
@@ -85,11 +97,26 @@ public class TaskManagerBot extends TelegramLongPollingBot {
         return "HSAI23_TaskManager_bot";
     }
 
+
+    private void startCommand(Long chatId, String username) {
+        singUp(chatId, username);
+        var msg = " Доброго времени суток! " + username;
+        sendMessage(chatId, msg);
+    }
     private void helpCommand(Long chatId) {
-        var text = """          
+        var msg = """          
                 %s
                 """;
-        sendMessage(chatId, text.formatted(COMMANDS));
+        sendMessage(chatId, msg.formatted(COMMANDS));
+    }
+    private void singUp(Long chatId, String login) {
+        //Integer id = (int) (long) chatId;
+        //UserService.AddUserDto user = new UserService.AddUserDto(login);
+        //userService.addUser(user);
+
+        userService.addUser(chatId, login);
+
+        sendMessage(chatId, chatId.toString());
     }
     private void sendMessage(Long chatId, String text) {
         var chatIdStr = String.valueOf(chatId);
@@ -101,7 +128,7 @@ public class TaskManagerBot extends TelegramLongPollingBot {
         }
     }
     private void dailyTask(Long chatId) {
-        var msg = taskService.getDay(Instant.now())
+        var msg = taskService.getDay(Instant.now(), chatId)
                 .block()
                 .stream()
                 .map(task -> "Номер: " + task.id() + " Задача: " + task.message() + " с дедлайном: " + task.deadline())
@@ -118,7 +145,7 @@ public class TaskManagerBot extends TelegramLongPollingBot {
         sendMessage(chatId, msg);
     }
     private void weeklyTask(Long chatId) {
-        var msg = taskService.getWeek(Instant.now())
+        var msg = taskService.getWeek(Instant.now(), chatId)
                 .block()
                 .stream()
                 .map(task -> "Номер: " + task.id() + "Задача: " + task.message() + " с дедлайном: " + task.deadline())
@@ -192,7 +219,7 @@ public class TaskManagerBot extends TelegramLongPollingBot {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd; HH:mm:ss");
         try {
             Date dateTime = sf.parse(input); // 1L - временная заглушка
-            AddTaskDto task = new AddTaskDto(1L , mes, Integer.valueOf(type), dateTime.toInstant(), false);
+            AddTaskDto task = new AddTaskDto(chatId , mes, Integer.valueOf(type), dateTime.toInstant(), false);
             taskService.addTask(task).block();
             sendMessage(chatId, "Успешно добавлено!");
         } catch (ParseException e) {
@@ -204,7 +231,7 @@ public class TaskManagerBot extends TelegramLongPollingBot {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd; HH:mm:ss");
         try {
             Date dateTime = sf.parse(input);
-            EditTaskDto task  = new EditTaskDto(1L , mes, Integer.valueOf(type), dateTime.toInstant(), false);
+            EditTaskDto task  = new EditTaskDto(chatId , mes, Integer.valueOf(type), dateTime.toInstant(), false);
             taskService.updateTask(task,Long.valueOf(id)).block();
             sendMessage(chatId, "Успешно обновлено!");
         } catch (ParseException e) {

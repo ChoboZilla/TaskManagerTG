@@ -5,48 +5,38 @@ import reactor.core.publisher.Mono;
 
 public interface UserService {
     Mono<UserDto> getById(Long id);
-    Mono<Long> addUser(UserService.AddUserDto addUserDto);
+    Mono<UserRepo.User> addUser(AddUserDto addUserDto, Long id);
+
+    void addUser(Long id, String login);
     Mono<UserDto> signIn(UserService.SignInDto signInDto);
     record UserDto(
             Long id,
-            String fname,
-
-            String sname,
-
             String login,
-
-            String password
+            Long chatId
     ){
         public static UserDto fromDbEntity(UserRepo.User user){
             return new UserDto(
                     user.id(),
-                    user.fname(),
-                    user.sname(),
                     user.login(),
-                    user.password()
+                    user.chatId()
             );
         }
     }
 
     record AddUserDto(
-            String fname,
-
-            String sname,
-
             String login,
-
-            String password
+            Long chatId
     ){
         public static UserRepo.User toDbEntity(UserService.AddUserDto addUserDto){
             return new UserRepo.User(
                     null,
-                    addUserDto.fname(),
-                    addUserDto.sname(),
                     addUserDto.login(),
-                    addUserDto.password()
+                    addUserDto.chatId()
             );
         }
     }
+
+
 
     record SignInDto(
             String login,
